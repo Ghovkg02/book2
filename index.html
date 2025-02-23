@@ -2,29 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="favicon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Photo Gallery 2</title>
   </head>
   <body>
     <div id="root"></div>
-    <audio id="background-music" src="/song.mp3" loop autoplay muted></audio>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const audio = document.getElementById('background-music');
-        audio.muted = false;
-        audio.play().catch(error => {
-          console.log('Autoplay was prevented:', error);
-        });
 
-        // Ensure audio plays on user interaction
-        document.body.addEventListener('click', function() {
-          audio.play().catch(error => {
-            console.log('Play was prevented:', error);
-          });
-        });
+    <audio id="background-music" src="/public/song.mp3" loop></audio>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("background-music");
+
+        function playAudio() {
+          audio.play().catch((error) => console.log("Play prevented:", error));
+          document.body.removeEventListener("click", playAudio); // Remove after first play
+        }
+
+        document.body.addEventListener("click", playAudio);
       });
     </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
